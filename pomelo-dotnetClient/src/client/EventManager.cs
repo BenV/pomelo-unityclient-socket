@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
-using SimpleJson;
+using Pomelo.MiniJSON;
 
 namespace Pomelo.DotNetClient
 {

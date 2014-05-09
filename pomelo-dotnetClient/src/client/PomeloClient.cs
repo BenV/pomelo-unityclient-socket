@@ -1,12 +1,12 @@
 using System.Collections;
-using SimpleJson;
-
 using System;
 using System.Text;
 using System.Net;
 using System.Net.Sockets;
 using System.Threading;
 using System.Collections.Generic;
+
+using Pomelo.MiniJSON;
 
 namespace Pomelo.DotNetClient
 {

@@ -1,7 +1,8 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
-using SimpleJson;
+
+using Pomelo.MiniJSON;
 using Pomelo.Protobuf;
 
 namespace Pomelo.Protobuf.Test
@@ -12,8 +13,7 @@ namespace Pomelo.Protobuf.Test
 			StreamReader file = new StreamReader(name);
 
 			String str = file.ReadToEnd();
-
-			return (JsonObject)SimpleJson.SimpleJson.DeserializeObject(str);
+			return Json.Deserialize(str) as JsonObject;
 		}
 
 		public static bool equal(JsonObject a, JsonObject b){
@@ -21,9 +21,9 @@ namespace Pomelo.Protobuf.Test
 
 			foreach(string key in keys0){
 				Console.WriteLine(a[key].GetType());
-				if(a[key].GetType().ToString() == "SimpleJson.JsonObject"){
+				if(a[key].GetType().ToString() == "Pomelo.MiniJSON.JsonObject"){
 					if(!equal ((JsonObject)a[key], (JsonObject)b[key])) return false;
-				}else if(a[key].GetType().ToString() == "SimpleJson.JsonArray"){
+				}else if(a[key].GetType().ToString() == "Pomelo.MiniJSON.JsonArray"){
 					continue;
 				}else{
 					if(!a[key].ToString().Equals(b[key].ToString())) return false;

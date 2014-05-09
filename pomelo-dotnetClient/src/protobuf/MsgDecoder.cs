@@ -1,8 +1,9 @@
 using System;
 using System.Text;
-using SimpleJson;
 using System.Collections;
 using System.Collections.Generic;
+
+using Pomelo.MiniJSON;
 
 namespace Pomelo.Protobuf
 {

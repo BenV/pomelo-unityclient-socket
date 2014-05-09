@@ -1,7 +1,7 @@
-using Pomelo.DotNetClient;
 using System;
 using System.Collections.Generic;
-using SimpleJson;
+using Pomelo.DotNetClient;
+using Pomelo.MiniJSON;
 
 namespace Pomelo.DotNetClient.Test
 {

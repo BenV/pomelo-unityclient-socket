@@ -1,6 +1,7 @@
 using System;
-using SimpleJson;
 using System.Text;
+
+using Pomelo.MiniJSON;
 
 namespace Pomelo.DotNetClient
 {
@@ -79,7 +80,7 @@ namespace Pomelo.DotNetClient
 			if (pkg.type == PackageType.PKG_HANDSHAKE && this.state == ProtocolState.handshaking) {
 
 				//Ignore all the message except handshading
-				JsonObject data = (JsonObject)SimpleJson.SimpleJson.DeserializeObject(Encoding.UTF8.GetString(pkg.body));
+				JsonObject data = Json.Deserialize(Encoding.UTF8.GetString(pkg.body)) as JsonObject;
 				
 				processHandshakeData(data);
 

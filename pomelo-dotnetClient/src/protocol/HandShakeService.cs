@@ -1,8 +1,9 @@
 using System;
 using System.Text;
-using SimpleJson;
 using System.Net;
 using System.Net.Sockets;
+
+using Pomelo.MiniJSON;
 
 namespace Pomelo.DotNetClient
 {

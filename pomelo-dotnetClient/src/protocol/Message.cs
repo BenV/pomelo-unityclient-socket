@@ -1,5 +1,5 @@
 using System;
-using SimpleJson;
+using Pomelo.MiniJSON;
 
 namespace Pomelo.DotNetClient
 {

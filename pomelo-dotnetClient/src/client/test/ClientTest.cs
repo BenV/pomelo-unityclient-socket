@@ -32,7 +32,6 @@ namespace Pomelo.DotNetClient.Test
 				int port = Convert.ToInt32(result["port"]);
 				pc = new PomeloClient(host, port);
 				pc.connect(null, (data)=>{
-					JsonObject userMessage = new JsonObject();
 					Console.WriteLine("on connect to connector!");
 					pc.on(PomeloClient.EVENT_DISCONNECT, onDisconnect);
 

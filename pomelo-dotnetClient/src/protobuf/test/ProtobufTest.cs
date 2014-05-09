@@ -18,7 +18,6 @@ namespace Pomelo.Protobuf.Test
 
 		public static bool equal(JsonObject a, JsonObject b){
 			ICollection<string> keys0 = a.Keys;
-			ICollection<string> keys1 = b.Keys;
 
 			foreach(string key in keys0){
 				Console.WriteLine(a[key].GetType());

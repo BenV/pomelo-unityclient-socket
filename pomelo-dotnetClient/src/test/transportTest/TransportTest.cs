@@ -55,8 +55,6 @@ namespace Pomelo.DotNetClient.Test
 		
 		public static void Run(){
 			int num = 10;
-			int limit = 1000;
-			
 			Transporter tc = new Transporter(null, process);
 			
 			List<byte[]> list;

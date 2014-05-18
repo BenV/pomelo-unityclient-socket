@@ -12,6 +12,8 @@ namespace Pomelo.DotNetClient
 		private Transporter transporter;
 		private HandShakeService handshake;
 		private HeartBeatService heartBeatService = null;
+		private JsonObject handshakeUser = null;
+		private Action<JsonObject> handshakeCallback = null;
 		private PomeloClient pc;
 
 		public PomeloClient getPomeloClient(){
@@ -22,6 +24,7 @@ namespace Pomelo.DotNetClient
 			this.pc = pc;
 			this.transporter = new Transporter (socket, this.processMessage);
 			this.transporter.onDisconnect = onDisconnect;
+			this.transporter.onConnect = onConnect;
 
 			this.handshake = new HandShakeService(this);
 			this.state = ProtocolState.start;
@@ -29,9 +32,14 @@ namespace Pomelo.DotNetClient
 
 		internal void start(JsonObject user, Action<JsonObject> callback){
 			this.transporter.start();
-			this.handshake.request(user, callback);
+			this.handshakeUser = user;
+			this.handshakeCallback = callback;
 
 			this.state = ProtocolState.handshaking;
+		}
+
+		internal void update(){
+			this.transporter.update();
 		}
 		
 		//Send notify, do not need id
@@ -139,17 +147,29 @@ namespace Pomelo.DotNetClient
 			handshake.invokeCallback(user);
 		}
 
+		private void onConnect() {
+			Console.WriteLine("Protocol.onConnect, sending handshake");
+			this.handshake.request(handshakeUser, handshakeCallback);
+			this.handshakeUser = null;
+			this.handshakeCallback = null;
+		}
+
 		//The socket disconnect
 		private void onDisconnect(){
 			this.pc.disconnect();
 		}
 
 		internal void close(){
-			transporter.close();
-
-			if(heartBeatService != null) heartBeatService.stop();
+			if(this.state == ProtocolState.closed){
+				return;
+			}
 
 			this.state = ProtocolState.closed;
+			transporter.close();
+
+			if(heartBeatService != null) {
+				heartBeatService.stop();
+			}
 		}
 	}
 }
